@@ -1,5 +1,6 @@
 require('dotenv').config()
 let express = require('express');
+let cors = require('cors');
 let app = express();
 let sequelize = require('./db');
 
@@ -15,7 +16,7 @@ let location = require('./controllers/locationController');
 
 sequelize.sync();
 
-// app.use(require('./middleware/headers'));
+app.use(require('./middleware/headers'));
 app.use(express.json());
 
 app.use('/user', user);

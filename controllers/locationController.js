@@ -1,8 +1,9 @@
 require("dotenv").config();
 const router = require("express").Router();
-const Loc = require("../db").import("../models/locModel");
-// const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcryptjs");
+const Loc = require("../db").import("../models/locationModel");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+let validateSession = require("../middleware/validate-session");
 
 //location create
 
@@ -20,7 +21,7 @@ router.post("/", (req, res) => {
 });
 
 // location update
-router.put('/:id'), /* validateSession, */ (req, res) => {
+router.put('/:id'), validateSession, (req, res) => {
     const query = { where: { id: req.params}};
     const locationEntry = {
         name: req.body.location.name,
@@ -46,7 +47,7 @@ router.put('/:id'), /* validateSession, */ (req, res) => {
     };
 
     //get all Locations
-router.get("/", /* validateSession, */ (req, res) => {
+router.get("/", validateSession, (req, res) => {
     console.log('yo')
     Location.findAll()
     .then((locations) => res.status(200).json(locations))
@@ -54,7 +55,7 @@ router.get("/", /* validateSession, */ (req, res) => {
   });
 
   //get Location by ID
-router.get('/:id', /*validateSession,*/ (req, res) => {
+router.get('/:id', validateSession, (req, res) => {
     const query = { where: { id: req.params.id}};
   
     Location.findOne(query)

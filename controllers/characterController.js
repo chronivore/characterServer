@@ -1,11 +1,11 @@
 let router = require("express").Router();
 let Character = require('../db').import('../models/characterModel');
-// let validateSession = require("../middleware/validate-session");
-// const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcryptjs");
+let validateSession = require("../middleware/validate-session");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 //Character Create
-router.post("/",/* validateSession,*/ (req, res) => {
+router.post("/", validateSession, (req, res) => {
     const characterEntry = {
       name: req.body.character.name,
       gender: req.body.character.gender,
@@ -23,7 +23,7 @@ router.post("/",/* validateSession,*/ (req, res) => {
 });
 
 //Character Delete
-router.delete('/:id',/* validateSession,*/ (req, res) => {
+router.delete('/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params.id } };
   Character.destroy(query)
   .then((recordsChanged) => {
@@ -41,7 +41,7 @@ router.delete('/:id',/* validateSession,*/ (req, res) => {
 });
 
 // Character Update
-router.put('/:id',/* validateSession,*/ (req, res) => {
+router.put('/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params}};
   const characterEntry = {
     name: req.body.character.name,
@@ -71,7 +71,7 @@ router.put('/:id',/* validateSession,*/ (req, res) => {
 });
 
 //get all Characters
-router.get("/", /* validateSession, */ (req, res) => {
+router.get("/", validateSession,  (req, res) => {
   console.log('yo')
   Character.findAll()
   .then((characters) => res.status(200).json(characters))
@@ -79,7 +79,7 @@ router.get("/", /* validateSession, */ (req, res) => {
 });
 
 //get Character by ID
-router.get('/:id', /*validateSession,*/ (req, res) => {
+router.get('/:id', validateSession, (req, res) => {
   const query = { where: { id: req.params.id}};
 
   Character.findOne(query)
