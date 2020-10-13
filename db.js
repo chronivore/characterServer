@@ -13,3 +13,10 @@ sequelize.authenticate().then(
 );
 
 module.exports = sequelize
+
+//missing database setups
+// import models to this file
+// utilizing reserved methods, tie them together
+// create owner id
+// keyword of has1, has many, etc
+// limited role access

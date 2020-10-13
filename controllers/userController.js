@@ -4,6 +4,9 @@ const User = require('../db').import('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
+// what would an admin be able to do?
+
 //User Create
 
 router.post('/signup', (req, res) => {

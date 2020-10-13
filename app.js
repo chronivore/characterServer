@@ -15,6 +15,7 @@ let location = require('./controllers/locationController');
 
 
 sequelize.sync();
+// {force:true}
 
 app.use(require('./middleware/headers'));
 app.use(express.json());

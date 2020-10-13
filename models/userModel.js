@@ -8,12 +8,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
+        },
+        role: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         }
-        // role: {
-        //     type: DataTypes.STRING,
-        //     allowNull: false
-        // }
     })
     
     return User;
 }
+
+//something in sequelize lets us put it in a default value for models;
