@@ -3,11 +3,6 @@ let express = require('express');
 let cors = require('cors');
 let app = express();
 let sequelize = require('./db');
-
-app.use('/poop', function(req, res){
-    res.send('poopity scoop!')
-})
-
 let user = require('./controllers/userController');
 let character = require('./controllers/characterController');
 let location = require('./controllers/locationController');

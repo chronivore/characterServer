@@ -1,3 +1,5 @@
+const User = require('../db').import('../models/userModel');
+
 module.exports = (sequelize, DataTypes) => {
     const Character = sequelize.define('character', {
         name: { 
@@ -27,8 +29,14 @@ module.exports = (sequelize, DataTypes) => {
         miscellaneous: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
+
 })
+Character.belongsTo(User)
 return Character;
 }
   

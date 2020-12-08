@@ -2,12 +2,13 @@ require("dotenv").config();
 const router = require("express").Router();
 const Loc = require("../db").import("../models/locationModel");
 const jwt = require("jsonwebtoken");
+let Location = require('../db').import('../models/locationModel')
 const bcrypt = require("bcryptjs");
 let validateSession = require("../middleware/validate-session");
 
 //location create
 
-router.post("/", (req, res) => {
+router.post("/", validateSession, (req, res) => {
   const locationEntry = {
     name: req.body.location.name,
     climate: req.body.location.climate,

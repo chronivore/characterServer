@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = require('../db').import('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+let validateSession = require("../middleware/validate-session");
 
 
 // what would an admin be able to do?
@@ -12,7 +13,7 @@ const bcrypt = require('bcryptjs');
 router.post('/signup', (req, res) => {
 
     User.create({
-        // role: req.body.user.role,
+        role: req.body.user.role,
         password: bcrypt.hashSync(req.body.user.password, 13),
         email: req.body.user.email
     })
@@ -65,7 +66,7 @@ router.post('/login', (req, res) => {
 
     //Find User by ID
 
-    router.get('/:id', /*validateSession*/ (req, res) => {
+    router.get('/:id', validateSession, (req, res) => {
         console.log("yo");
         const query = { where: { id: req.params.id}};
     

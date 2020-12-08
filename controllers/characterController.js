@@ -13,8 +13,8 @@ router.post("/", validateSession, (req, res) => {
       race: req.body.character.race,
       occupation: req.body.character.occupation,
       skills: req.body.character.skills,
-      // userId: req.user.id,
-      miscellaneous: req.body.character.miscellaneous
+      miscellaneous: req.body.character.miscellaneous,
+      userId: req.user.id
     };
 
     Character.create(characterEntry)
@@ -42,7 +42,7 @@ router.delete('/:id', validateSession, (req, res) => {
 
 // Character Update
 router.put('/:id', validateSession, (req, res) => {
-  const query = { where: { id: req.params}};
+  const query = { where: { id: req.params.id }};
   const characterEntry = {
     name: req.body.character.name,
     gender: req.body.character.gender,
@@ -72,8 +72,9 @@ router.put('/:id', validateSession, (req, res) => {
 
 //get all Characters
 router.get("/", validateSession,  (req, res) => {
-  console.log('yo')
-  Character.findAll()
+  let userId = req.user.id; 
+  const query = req.user.role ? undefined : {where : { userId: userId }}
+  Character.findAll(query)
   .then((characters) => res.status(200).json(characters))
   .catch((err) => res.status(500).json({ error: err }));
 });
