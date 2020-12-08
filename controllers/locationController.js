@@ -21,9 +21,29 @@ router.post("/", validateSession, (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
+//Location Delete
+router.delete('/:id', validateSession, (req, res) => {
+  console.log("in delete")
+  const query = { where: { id: req.params.id } };
+  Location.destroy(query)
+  .then((recordsChanged) => {
+    if (recordsChanged !== 0) {
+      res.status(200).json({
+        message: "location deleted.",
+      });
+    } else {
+      res.status(200).json({
+        message: 'location not found.',
+      });
+    }
+  })
+  .catch((err) => res.status(500).json({ error: err }));
+});
+
 // location update
 router.put('/:id'), validateSession, (req, res) => {
-    const query = { where: { id: req.params}};
+  console.log("in location update")
+    const query = { where: { id: req.params.id} };
     const locationEntry = {
         name: req.body.location.name,
         climate: req.body.location.climate,
